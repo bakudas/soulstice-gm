@@ -1,6 +1,6 @@
 /// @description Movement logic
 // Get the input
-var x_input = (keyboard_check(vk_right) - keyboard_check(vk_left)) * acceleration_;
+x_input = (keyboard_check(vk_right) - keyboard_check(vk_left)) * acceleration_;
 
 // Vector variables
 var vector2_x = 0;
@@ -12,6 +12,7 @@ velocity_[vector2_x] = clamp(velocity_[vector2_x]+x_input, -max_velocity_[vector
 // Friction
 if x_input == 0 {
 	velocity_[vector2_x] = lerp(velocity_[vector2_x], 0, .3);
+	sprite_index = spr_kal_idle;
 }
 
 // Gravity
@@ -26,7 +27,7 @@ if on_ground {
 	// Jumping
 	if keyboard_check_pressed(vk_up) {
 		velocity_[vector2_y] = -jump_speed_;
-		image_index = spr_kal_jump;
+		sprite_index = spr_kal_jump;
 	}
 } else {
 	// Control jump height
@@ -34,3 +35,8 @@ if on_ground {
 		velocity_[vector2_y] = -(jump_speed_/3);
 	}
 }
+
+// Animations
+if !on_ground sprite_index = spr_kal_jump;
+if(x_input != 0 && on_ground) sprite_index = spr_kal_run;
+if(x_input > 0 && on_ground) image_xscale = 1; else if (x_input < 0 && on_ground) image_xscale = -1;

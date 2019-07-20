@@ -1,7 +1,7 @@
 /// @description Movement variables
 velocity_ = [0, 0];
 gravity_ = 0.9;
-jump_speed_ = 8;
+jump_speed_ = 10;
 max_velocity_ = [2, 6];
 acceleration_ = 1.1;
 
